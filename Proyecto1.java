@@ -19,9 +19,10 @@ public class Proyecto1 {
 
         challenger = challenger.equals("1") ? "X" : "O";
         rival = challenger.equals("X") ? "O" : "X";
-        
 
-        System.out.println("\n\nprimer movimiento");
+        int number = 1;
+
+        System.out.println("\n\nmovimiento " + number++);
         smartMove(tablero, challenger);
         visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
         revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
@@ -29,7 +30,7 @@ public class Proyecto1 {
         posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
         posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
 
-        System.out.println("\n\nsegundo movimiento");
+        System.out.println("\n\nmovimiento " + number++);
         randomMove(tablero, espaciosVacios, rival);
         visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
         revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
@@ -37,7 +38,7 @@ public class Proyecto1 {
         posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
         posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
 
-        System.out.println("\n\ntercer movimiento");
+        System.out.println("\n\nmovimiento " + number++);
         smartMove(tablero, challenger);
         visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
         revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
@@ -45,7 +46,11 @@ public class Proyecto1 {
         posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
         posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
 
-        System.out.println("\n\ncuarto movimiento");
+        boolean salir = false; //Se utilizara para determinar si hay empate, vistoria o derrota
+
+        while (!espaciosVacios.isEmpty()) {
+
+        System.out.println("\n\nmovimiento " + number++);
         randomMove(tablero, espaciosVacios, rival);
         visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
         revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
@@ -53,49 +58,20 @@ public class Proyecto1 {
         posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
         posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
 
-        System.out.println("\n\nquinto movimiento");
-        verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
-
-        System.out.println("\n\nsexto movimiento");
-        randomMove(tablero, espaciosVacios, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
-
-        System.out.println("\n\nseptimo movimiento");
-        verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
-
-        System.out.println("\n\noctavo movimiento");
-        randomMove(tablero, espaciosVacios, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
-
-        System.out.println("\n\nnoveno movimiento");
-        verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+            System.out.println("\n\nmovimiento " + number++);
+            verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival, salir);
+            visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
+            revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
+            revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
+            posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
+            posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+        }
 
     }
 
-    public static void verificarMejorJugada(String[][] tablero, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasChallenger, String challenger, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasRival, String rival) {
+    public static void verificarMejorJugada(String[][] tablero, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasChallenger, String challenger, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasRival, String rival, boolean salir) {
+        //Hace falta verificar las diagonales
+        
         boolean ataque = siguienteMoviento(tablero, posiblesJugadasChallenger, challenger, challenger);
         if (!ataque) {
             boolean defensa = siguienteMoviento(tablero, posiblesJugadasRival, rival, challenger);
@@ -118,6 +94,7 @@ public class Proyecto1 {
 
         } else {
             System.out.println("\n\n!!WINNER -> " + challenger + " <- WINNER!!\n\n");
+            salir = true;
         }
     }
 
