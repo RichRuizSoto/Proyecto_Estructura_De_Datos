@@ -18,7 +18,7 @@ public class Proyecto1 {
         String rival;
 
         challenger = challenger.equals("1") ? "X" : "O";
-        rival = challenger.equals("1") ? "O" : "X";
+        rival = challenger.equals("X") ? "O" : "X";
         
 
         System.out.println("\n\nprimer movimiento");
