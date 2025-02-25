@@ -46,32 +46,61 @@ public class Proyecto1 {
         posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
         posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
 
-        boolean salir = false; //Se utilizara para determinar si hay empate, vistoria o derrota
+        boolean continuar = true; //Se utilizara para determinar si hay empate, victoria o derrota
 
-        while (!espaciosVacios.isEmpty()) {
+        OUTER:
+        while (!espaciosVacios.isEmpty() && continuar == true) {
 
-        System.out.println("\n\nmovimiento " + number++);
-        randomMove(tablero, espaciosVacios, rival);
-        visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-        revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-        revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-        posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-        posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+            continuar = verificadorDeVictoria(tablero, posiblesJugadasChallenger, challenger);
 
-            System.out.println("\n\nmovimiento " + number++);
-            verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival, salir);
-            visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
-            revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
-            revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
-            posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
-            posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+            if (continuar == true) {
+                System.out.println("\n\nmovimiento " + number++);
+                randomMove(tablero, espaciosVacios, rival);
+                visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
+                revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
+                revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
+                posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
+                posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+            } else {
+                break OUTER;
+            }
+
+            continuar = verificadorDeVictoria(tablero, posiblesJugadasRival, rival);
+
+            if (continuar == true) {
+                System.out.println("\n\nmovimiento " + number++);
+                verificarMejorJugada(tablero, posiblesJugadasChallenger, challenger, posiblesJugadasRival, rival, continuar);
+                visualizacionRecursiva(tablero, espaciosVacios, 0, 0);
+                revisionMarcasRecursivo(tablero, marcasPropias, 0, 0, challenger);
+                revisionMarcasRecursivo(tablero, marcasDelRival, 0, 0, rival);
+                posiblesJugadasRecursivo(tablero, marcasPropias, posiblesJugadasChallenger, 0, challenger);
+                posiblesJugadasRecursivo(tablero, marcasDelRival, posiblesJugadasRival, 0, rival);
+            } else {
+                break OUTER;
+            }
+
         }
 
     }
 
+    public static boolean verificadorDeVictoria(String[][] tablero, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadas, String jugador) {
+        for (ArrayList<ArrayList<Integer>> jugada : posiblesJugadas) {
+            int marcasEnLinea = 0;
+            for (ArrayList<Integer> spot : jugada) {
+                if (jugador.equalsIgnoreCase(tablero[spot.get(0)][spot.get(1)])) {
+                    marcasEnLinea++;
+                }
+                if (marcasEnLinea == 3) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void verificarMejorJugada(String[][] tablero, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasChallenger, String challenger, ArrayList<ArrayList<ArrayList<Integer>>> posiblesJugadasRival, String rival, boolean salir) {
         //Hace falta verificar las diagonales
-        
+
         boolean ataque = siguienteMoviento(tablero, posiblesJugadasChallenger, challenger, challenger);
         if (!ataque) {
             boolean defensa = siguienteMoviento(tablero, posiblesJugadasRival, rival, challenger);
